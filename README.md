@@ -33,7 +33,7 @@ It's pretty straightforward. Just include role in a playbook:
   roles:
     - role: devkyt.nomad
       vars:
-        version: 1.19.1
+        version: 1.8.3
         type: client
         config: /path/to/config/client.hcl
         wait_for_consul: false
