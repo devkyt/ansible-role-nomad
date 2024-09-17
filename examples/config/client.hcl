@@ -39,6 +39,14 @@ plugin "raw_exec" {
     }
 }
 
+plugin "nomad-driver-podman" {
+    config {
+        socket_path            = "unix:///run/user/1000/podman/podman.sock"
+        disable_log_collection = true
+
+    }
+}
+
 consul {
     address             = "127.0.0.1:8500"
     grpc_address        = "127.0.0.1:8502"
