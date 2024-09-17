@@ -1,0 +1,31 @@
+---
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+        - main
+
+jobs:
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install linters
+        run: pip3 install yamllint ansible-lint
+
+      - name: Check via yamllint
+        run: yamllint .
+
+      - name: Check via ansible-lint
+        run: ansible-lint -c .ansible-lint.yml

@@ -1,0 +1,15 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 165
+    level: warning
+
+  truthy:
+    allowed-values:
+      - "true"
+      - "false"
+
+ignore: |
+  .github/

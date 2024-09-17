@@ -1,0 +1,27 @@
+[Unit]
+Description=Nomad
+Documentation=https://www.nomadproject.io/docs/
+ConditionFileNotEmpty=/etc/nomad.d/nomad.hcl
+Wants=network-online.target
+After=network-online.target
+{% if wait_for_consul %}
+Wants=consul.service
+After=consul.service
+{% endif %}
+
+[Service]
+Type=notify
+User={{ "root" if type == "client" else "nomad" }}
+Group={{ "root" if type == "client" else "nomad" }}
+ExecStart=/usr/bin/nomad agent -config /etc/nomad.d
+ExecReload=/bin/kill --signal HUP $MAINPID
+KillMode=process
+KillSignal=SIGTERM
+LimitNOFILE=65536
+LimitNPROC=infinity
+RestartSec=5
+TasksMax=infinity
+OOMScoreAdjust=-1000
+
+[Install]
+WantedBy=multi-user.target

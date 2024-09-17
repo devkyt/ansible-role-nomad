@@ -1,0 +1,9 @@
+---
+- name: Intall required packages
+  ansible.builtin.dnf:
+    name:
+      - ca-certificates
+      - wget
+      - yum-utils
+    state: present
+    update_cache: true

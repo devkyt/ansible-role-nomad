@@ -1,0 +1,27 @@
+---
+- name: Reread systemd configs
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+  when:
+    - run_handlers
+
+- name: Restart Nomad
+  ansible.builtin.systemd_service:
+    name: nomad
+    state: restarted
+  when:
+    - run_handlers
+
+- name: Ensure Nomad is running
+  ansible.builtin.systemd_service:
+    name: nomad
+    state: started
+  when:
+    - run_handlers
+
+- name: Enable Nomad
+  ansible.builtin.systemd_service:
+    name: nomad
+    enabled: true
+  when:
+    - run_handlers

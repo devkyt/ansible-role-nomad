@@ -1,0 +1,24 @@
+---
+- name: Add config for Nomad
+  ansible.builtin.copy:
+    src: "{{ config }}"
+    dest: "/etc/nomad.d/nomad.hcl"
+    remote_src: false
+    owner: nomad
+    mode: u=rwX,g=rX,o=rX
+  notify:
+    - Reread systemd configs
+    - Restart Nomad
+    - Ensure Nomad is running
+    - Enable Nomad
+
+- name: Add systemd config for Nomad
+  ansible.builtin.template:
+    src: "nomad.service.j2"
+    dest: "/etc/systemd/system/nomad.service"
+    mode: u=rwX,g=rX,o=rX
+  notify:
+    - Reread systemd configs
+    - Restart Nomad
+    - Ensure Nomad is running
+    - Enable Nomad

@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: true
+
+  vars:
+    version: 1.8.3
+    type: client
+    config: "../../examples/config/client.hcl"
+    run_handlers: false
+
+  roles:
+    - role: devkyt.nomad

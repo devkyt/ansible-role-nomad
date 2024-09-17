@@ -1,0 +1,9 @@
+---
+- name: Prepare environment
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}/01-prerequisite.yml"
+
+- name: Install Nomad
+  ansible.builtin.include_tasks: "{{ ansible_os_family }}/02-install.yml"
+
+- name: Configure Nomad
+  ansible.builtin.include_tasks: "config.yml"

@@ -1,0 +1,20 @@
+---
+- name: Update the list of available packages
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: false
+    cache_valid_time: 86400
+
+- name: Intall required packages
+  ansible.builtin.apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - wget
+      - software-properties-common
+      - coreutils
+      - gpg
+      - python3-pip
+      - virtualenv
+      - python3-setuptools
+    state: present
